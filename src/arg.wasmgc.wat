@@ -145,38 +145,31 @@
   (import "libasmrun" "camlStdlib__array__iter_1057" (func $camlStdlib__array__iter_1057 (type 99)))
   (import "libasmrun" "camlStdlib__close_out_201239" (func $camlStdlib__close_out_201239 (type 100)))
   (func $camlStdlib__arg__assoc3_1670 (type 4) (param $x/1671 anyref) (param $l/1672 anyref) (result anyref)
-    (local $*match*/602167 i32)
+    (local $*match*/602167 $camlStdlib__arg__assoc3_1670_type0)
     get_local $l/1672
-    ref.is_i31 ;;
+    ref.is_i31
     i32.const 1
     i32.ne
     if (result anyref)  ;; label = @1
       get_local $l/1672
       ref $camlStdlib__arg__assoc3_1670_type0
       ref.cast ;; cast to expected type at runtime
-
       ;; i32.load align=1
       set_local $*match*/602167 ;;
-
-
       get_local $*match*/602167
-      i32.load align=1
-      
+      struct.get 0
       get_local $x/1671
       call $caml_equal
+      ref.is_i31
       i32.const 1
       i32.ne
-      if (result i32)  ;; label = @2
+      if (result anyref)  ;; label = @2
         get_local $*match*/602167
-        i32.const 4
-        i32.add
-        i32.load align=1
+        struct.get 1
       else
         get_local $x/1671
         get_local $l/1672
-        i32.const 4
-        i32.add
-        i32.load align=1
+        struct.get 1
         call $camlStdlib__arg__assoc3_1670
       end
     else
@@ -184,19 +177,22 @@
       i32.const 0
       i32.store align=1
       i32.const 0
-      call $jsRaise_i32_i32
+      call $jsRaise_i32_i32 ;; need to use the exception spec, but not part of this exercise
       return
     end)
-  (func $camlStdlib__arg__split_1676 (type 5) (param $s/1677 i32) (result i32)
+  (func $camlStdlib__arg__split_1676 (type 5) (param $s/1677 anyref) (result anyref)
     (local $tmp/602512 i32) (local $i/1678 i32) (local $tmp/602511 i32) (local $len/1726 i32) (local $prim/602236 i32) (local $len/602237 i32) (local $ofs/602238 i32) (local $prim/602239 i32) (local $allocate_memory_pointer_0 i32)
     get_local $s/1677
+    
     get_local $s/1677
     i32.const -4
     i32.add
-    i32.load align=1
+    i32.load align=1 ;; load the block header << - needs to go
+
+    
     i32.const 10
-    i32.shr_u
-    i32.const 2
+    i32.shr_u ;; size
+    i32.const 2 ;;
     i32.shl
     i32.const 1
     i32.sub
